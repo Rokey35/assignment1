@@ -11,5 +11,8 @@ public class State {
 	int [] score;
 	int turn; 
 	int food;
-	
+
+	public void read(String file) {
+		
+	}
 }
