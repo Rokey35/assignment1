@@ -13,6 +13,7 @@ public class State {
 	int food;
 
 	public void read(String file) {
-		File data = new File("data.txt")
+		File data = new File("board.txt")
+		for (int row = 0; row < len(
 	}
 }
