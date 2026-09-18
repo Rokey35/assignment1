@@ -13,6 +13,6 @@ public class State {
 	int food;
 
 	public void read(String file) {
-		
+		File data = new File("data.txt")
 	}
 }
