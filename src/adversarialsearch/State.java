@@ -83,11 +83,11 @@ public class State {
             	} else {
                 	result = result + board[row][col]);
             	}
-        }
-        result = result + "\n";
-    }
+        	}
+        	result = result + "\n";
+    	}
 
-    return result;
-}
-	 }
+    	return result;
+	}
+	 
 }
