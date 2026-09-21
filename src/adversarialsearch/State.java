@@ -68,4 +68,8 @@ public class State {
 		    }
 		 
 	 }
+	 public String toString() {
+		 String result = "";
+		 result = result + State.board
+	 }
 }
