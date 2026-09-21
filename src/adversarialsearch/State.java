@@ -68,8 +68,26 @@ public class State {
 		    }
 		 
 	 }
-	 public String toString() {
-		 String result = "";
-		 result = result + State.board
+	public String toString() {
+    	String result = "";
+		result = result + board.length
+
+    	for (int row = 0; row < board.length; row++) {
+        	for (int col = 0; col < board[row].length; col++) {
+            	int y = board.length - row - 1;
+
+            	if (agentX[0] == col && agentY[0] == y) {
+                	result= result + "A";
+            	} else if (agentX[1] == col && agentY[1] == y) {
+                	result = result + "B";
+            	} else {
+                	result = result + board[row][col]);
+            	}
+        }
+        result = result + "\n";
+    }
+
+    return result;
+}
 	 }
 }
