@@ -89,5 +89,17 @@ public class State {
 
     	return result;
 	}
-	 
+	 public State(State other) {
+		 board = new char[other.board.length][];
+		 for (int i = 0; i < other.board.length; i++) {
+			 board[i] = other.board[i].clone();
+		 }
+		 agentX = other.agentX.clone();
+		 agentY = other.agentY.clone();
+		 score = other.score.clone();
+		 moves = new Vector<>(other.moves);
+	}
+	public State copy() {
+		State state1 = new State()
+	}	
 }
