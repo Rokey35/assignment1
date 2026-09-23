@@ -107,7 +107,7 @@ public class State {
 	public Vector<String> legalMoves(int agent) {
 		Vector<String> legalmoves = new Vector<>();
 		int x = agentX[agent]
-		int y = agentY[agent]
+		int row = board.length -1 - agentY[agent]
 
 		if (row > 0 && board[row - 1][x] != '#') {
         legalmoves.add("up");
@@ -133,4 +133,32 @@ public class State {
 	public Vector<String> legalMoves() {
     	return legalMoves(turn);
 	}	
+	public void execute(String action) {
+		if (action == "up") {
+			agentY[agent] += 1;
+			moves.add("up");
+		}
+		if (action == "right") {
+			agentX[agent] += 1;
+			moves.add("right");
+		}
+		if (action == "down") {
+			agentY[agent] -= 1;
+			moves.add("down");
+		}
+		if (action == "left") {
+			agentX[agent] -= 1;
+			moves.add("left");
+		}
+		if (action == "eat") {
+			food -= 1
+			score[agent] += 1
+			board[agentX][agentY] = ' ';
+			moves.add("eat");
+		}
+		if (action == "block" {
+			board[agentX][agenty] = '#';
+			moves.add("block");
+		}
+	}
 }
