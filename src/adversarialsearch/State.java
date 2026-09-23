@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException; 
 import java.util.Scanner;   
 import java.util.Vector;
+import java.util.HashSet;
 public class State {
 
 	char[][] board;
@@ -70,7 +71,7 @@ public class State {
 	 }
 	public String toString() {
     	String result = "";
-		result = result + board.length
+		result = result + board.length;
 
     	for (int row = 0; row < board.length; row++) {
         	for (int col = 0; col < board[row].length; col++) {
@@ -100,6 +101,36 @@ public class State {
 		 moves = new Vector<>(other.moves);
 	}
 	public State copy() {
-		State state1 = new State()
+		State state1 = new State(this)
+		
+	}	
+	public Vector<String> legalMoves(int agent) {
+		Vector<String> legalmoves = new Vector<>();
+		int x = agentX[agent]
+		int y = agentY[agent]
+
+		if (row > 0 && board[row - 1][x] != '#') {
+        legalmoves.add("up");
+	    }
+	    if (x + 1 < board[row].length && board[row][x + 1] != '#') {
+	        legalmoves.add("right");
+	    }
+	    if (row + 1 < board.length && board[row + 1][x] != '#') {
+	        legalmoves.add("down");
+	    }
+	    if (x > 0 && board[row][x - 1] != '#') {
+	        legalmoves.add("left");
+	    }
+	    if (board[row][x] == '*') {
+	        legalmoves.add("eat");
+	    }
+	    if (board[row][x] == ' ') {
+	        legalmoves.add("block");
+	    }
+
+    	return legalmoves;
+	}
+	public Vector<String> legalMoves() {
+    	return legalMoves(turn);
 	}	
 }
