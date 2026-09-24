@@ -161,4 +161,15 @@ public class State {
 			moves.add("block");
 		}
 	}
+	public boolean isLeaf() {
+		if (food == 0) {
+			return true;
+		}
+		if (legalMoves()) {
+			return true;
+		}	
+		return false;
+		
+	}
+	
 }
