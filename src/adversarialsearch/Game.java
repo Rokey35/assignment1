@@ -8,6 +8,7 @@ public class Game {
 		b=new State();
 		b.read("data/board.txt");
 	}
+	/*
 	public void test() {
 		
 		//System.out.println(minimax(b, b.turn, 11, 0));
@@ -18,5 +19,5 @@ public class Game {
 			b.execute(b.legalMoves().get((int)(Math.random()*b.legalMoves().size())));
 		}
 	}
-	
+	*/	
 }

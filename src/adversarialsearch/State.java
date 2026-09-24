@@ -13,7 +13,7 @@ public class State {
 	int turn;
 	int food;
 	Vector<String> moves;
-
+	
 	public State() {
 	        board = new char[0][0];
 	        agentX = new int[2];
@@ -21,6 +21,7 @@ public class State {
 	        score = new int[2];
 	        moves = new Vector<String>();
 	}
+	
 
 	 public void read(String file) {
 		 File boardFile = new File(file);
@@ -82,7 +83,7 @@ public class State {
             	} else if (agentX[1] == col && agentY[1] == y) {
                 	result = result + "B";
             	} else {
-                	result = result + board[row][col]);
+                	result = result + board[row][col];
             	}
         	}
         	result = result + "\n";
@@ -101,16 +102,16 @@ public class State {
 		 moves = new Vector<>(other.moves);
 	}
 	public State copy() {
-		State state1 = new State(this)
+		State state1 = new State(this);
 		
 	}	
 	public Vector<String> legalMoves(int agent) {
 		Vector<String> legalmoves = new Vector<>();
-		int x = agentX[agent]
-		int row = board.length -1 - agentY[agent]
+		int x = agentX[agent];
+		int row = board.length -1 - agentY[agent];
 
 		if (row > 0 && board[row - 1][x] != '#') {
-        legalmoves.add("up");
+			legalmoves.add("up");
 	    }
 	    if (x + 1 < board[row].length && board[row][x + 1] != '#') {
 	        legalmoves.add("right");
@@ -135,32 +136,49 @@ public class State {
 	}	
 	public void execute(String action) {
 		if (action == "up") {
-			agentY[agent] += 1;
+			agentY[turn] += 1;
 			moves.add("up");
 		}
 		if (action == "right") {
-			agentX[agent] += 1;
+			agentX[turn] += 1;
 			moves.add("right");
 		}
 		if (action == "down") {
-			agentY[agent] -= 1;
+			agentY[turn] -= 1;
 			moves.add("down");
 		}
 		if (action == "left") {
-			agentX[agent] -= 1;
+			agentX[turn] -= 1;
 			moves.add("left");
 		}
 		if (action == "eat") {
-			food -= 1
-			score[agent] += 1
-			board[agentX][agentY] = ' ';
+			food -= 1;
+			score[turn] += 1;
+			board[agentX[turn]][agentY[turn]] = ' ';
 			moves.add("eat");
 		}
-		if (action == "block" {
-			board[agentX][agenty] = '#';
+		if (action == "block") {
+			board[agentX[turn]][agentY[turn]] = '#';
+			System.out.println(board[agentX[turn]][agentY[turn]]);
 			moves.add("block");
 		}
+
+	
+		int row = board.length - 1 - agentY[turn];
+	    int col = agentX[turn];
+	
+	    if ("eat".equals(action)) {
+	        food -= 1;
+	        score[turn] += 1;
+	        board[row][col] = ' ';
+	        moves.add("eat");
+	    } else if ("block".equals(action)) {
+	        board[row][col] = '#';
+	        moves.add("block");
+	    }
 	}
+	
+	/*(
 	public boolean isLeaf() {
 		if (food == 0) {
 			return true;
@@ -171,5 +189,6 @@ public class State {
 		return false;
 		
 	}
+	*/
 	
 }
