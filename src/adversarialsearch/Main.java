@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 		Game g=new Game();
-		g.test();
+		//g.test();
 		//System.out.println(g.b.toString());
 		//g.b.turn = 1;
 		///g.b.execute("block");
@@ -25,6 +25,20 @@ public class Main {
 		//copyState.execute("down");
 		//System.out.println(copyState.toString());
 		//System.out.println(g.b.value(0));
+		g.b.turn = 1;
+		for (int depth = 7; depth <= 30; depth++) {
+			State initialState = g.b.copy();
+			initialState.turn = 1;
+	        int firstToMove = initialState.turn;
+	        State bestState = g.minimax(initialState, firstToMove, depth, 0);
+
+	        System.out.println("best state when depth " + depth);
+	        System.out.println(bestState.value(firstToMove));
+	        System.out.println(bestState.toString());
+	        System.out.println("Moves path: " + bestState.moves);
+			
+		}
+		
 		
 		
 		

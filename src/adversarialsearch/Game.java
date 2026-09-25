@@ -4,10 +4,12 @@ import java.util.Vector;
 
 public class Game {
 	State b;
+	int nodesVisited;
 	public Game() {
 		b=new State();
 		b.read("data/board.txt");
 	}
+	/*
 	public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
 		if (s.isLeaf() || depth >= maxDepth) {
 	        return s;
@@ -48,11 +50,96 @@ public class Game {
 	   
 		
 	}
+	*/
+	/*
 	public State minimax(State s, int forAgent, int maxDepth, int depth) {
 		if (s.isLeaf() || depth >= maxDepth) {
 	        return s;
 	    }
-		boolean maximizing = s.turn == forAgent;
+		boolean findMax = s.turn == forAgent;
+	    State bestState = null;
+	    
+	    
+	    double bestValue;
+	    
+	    if (findMax) {
+	        bestValue = -2.0;
+	    } else {
+	        bestValue = 2.0;
+	    }
+	    
+	    for (String action : s.legalMoves()) {
+	        State child = s.copy();
+	        child.execute(action);
+
+	        State resultState = minimax(child, forAgent, maxDepth, depth + 1);
+	        double resultValue = resultState.value(forAgent);
+
+	        if (findMax) {
+	            if (bestState == null || resultValue > bestValue) {
+	                bestValue = resultValue;
+	                bestState = resultState;
+	            }
+	        } else {
+	            if (bestState == null || resultValue < bestValue) {
+	                bestValue = resultValue;
+	                bestState = resultState;
+	            }
+	        }
+	    }
+	    return bestState;
+	    
+	   
+		
+	}
+	*/
+	public State minimax(State s, int forAgent, int maxDepth, int depth) {
+		if (s.isLeaf() || depth >= maxDepth) {
+	        return s;
+	    }
+		boolean findMax = s.turn == forAgent;
+	    State bestState = null;
+	    
+	    
+	    double bestValue;
+	    
+	    if (findMax) {
+	        bestValue = -2.0;
+	    } else {
+	        bestValue = 2.0;
+	    }
+	    
+	    for (String action : s.legalMoves()) {
+	        State child = s.copy();
+	        child.execute(action);
+
+	        State resultState = minimax(child, forAgent, maxDepth, depth + 1);
+	        double resultValue = resultState.value(forAgent);
+
+	        if (findMax) {
+	            if (bestState == null || resultValue > bestValue) {
+	                bestValue = resultValue;
+	                bestState = resultState;
+	            }
+	        } else {
+	            if (bestState == null || resultValue < bestValue) {
+	                bestValue = resultValue;
+	                bestState = resultState;
+	            }
+	        }
+	    }
+	    return bestState;
+	    
+	   
+		
+	}
+	
+	public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
+		nodesVisited++;
+		if (s.isLeaf() || depth >= maxDepth) {
+	        return s;
+	    }
+		boolean maximizing = (s.turn == forAgent);
 	    State bestState = null;
 	    
 	    
@@ -67,8 +154,7 @@ public class Game {
 	    for (String action : s.legalMoves()) {
 	        State child = s.copy();
 	        child.execute(action);
-
-	        State resultState = minimax(child, forAgent, maxDepth, depth + 1);
+	        State resultState = alfabeta(child, forAgent, maxDepth, depth + 1, alfa, beta);
 	        double resultValue = resultState.value(forAgent);
 
 	        if (maximizing) {
@@ -76,11 +162,16 @@ public class Game {
 	                bestValue = resultValue;
 	                bestState = resultState;
 	            }
+	            alfa = Math.max(alfa, bestValue);
 	        } else {
 	            if (resultValue < bestValue) {
 	                bestValue = resultValue;
 	                bestState = resultState;
 	            }
+	            beta = Math.min(beta, bestValue);
+	        }
+	        if (alfa >= beta) {
+	            break;
 	        }
 	    }
 	    return bestState;
@@ -88,9 +179,8 @@ public class Game {
 	   
 		
 	}
+	
 	public void test() {
-		
-		System.out.println(minimax(b, b.turn, 11, 0));
 		
 		while (!b.isLeaf()){
 			System.out.println(b.toString());

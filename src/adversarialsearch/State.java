@@ -203,26 +203,29 @@ public class State {
 
 	public double value(int agent) {
 		if (!isLeaf()) {
-			return 0.0;
-		}
+	        return 0.0;
+	    }
 
-		int enemy = 1 - agent;
+	    boolean agent0Stuck = legalMoves(0).isEmpty();
+	    boolean agent1Stuck = legalMoves(1).isEmpty();
 
-		if (legalMoves(turn).isEmpty()) {
-			if (agent == turn) {
-				return -1.0;
-			} else {
 
-				return 1.0;
-			}
-		}
+	    if (agent0Stuck && !agent1Stuck) {
+	        return (agent == 0) ? -1.0 : 1.0;
+	    }
+	    if (agent1Stuck && !agent0Stuck) {
+	        return (agent == 1) ? -1.0 : 1.0;
+	    }
 
-		if (score[agent] > score[enemy]) {
-			return 1.0;
-		} else if (score[agent] < score[enemy]) {
-			return -1.0;
-		} else {
-			return 0.0;
-		}
+
+	    int enemy = 1 - agent;
+	    if (score[agent] > score[enemy]) {
+	        return 1.0;
+	    } else if (score[agent] < score[enemy]) {
+	        return -1.0;
+	    } else {
+	        return 0.0;
+	    }
+		
 	}
 }
