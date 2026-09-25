@@ -93,6 +93,8 @@ public class Game {
 		
 	}
 	*/
+	
+	
 	public State minimax(State s, int forAgent, int maxDepth, int depth) {
 		if (s.isLeaf() || depth >= maxDepth) {
 	        return s;

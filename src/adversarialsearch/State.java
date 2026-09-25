@@ -206,15 +206,21 @@ public class State {
 	        return 0.0;
 	    }
 
-	    boolean agent0Stuck = legalMoves(0).isEmpty();
-	    boolean agent1Stuck = legalMoves(1).isEmpty();
 
-
-	    if (agent0Stuck && !agent1Stuck) {
-	        return (agent == 0) ? -1.0 : 1.0;
+	    if (legalMoves(0).isEmpty() && !legalMoves(1).isEmpty()) {
+	        if (agent == 0) {
+	            return -1.0;
+	        } else {
+	            return 1.0;
+	        }
 	    }
-	    if (agent1Stuck && !agent0Stuck) {
-	        return (agent == 1) ? -1.0 : 1.0;
+	    
+	    if (legalMoves(1).isEmpty() && !legalMoves(0).isEmpty()) {
+	        if (agent == 1) {
+	            return -1.0;
+	        } else {
+	            return 1.0;
+	        }
 	    }
 
 
